@@ -10,10 +10,10 @@ We can see here that the Upper Confidence Bounds performs a bit better that the 
 ## Installation:
 The only libraries used here are numpy, random and matplotlib.pyplot. As random is in the standard library, you only have to download numpy and matplolib in your environment:
 
-'''bash
+```bash
 pip install numpy
 pip install matplotlib
-'''
+```
 
 ## Usage:
 The file main.py defines the function you may want to use. All of them only have optional parameters, so if you want to produce the same graphics than those who are presented 
