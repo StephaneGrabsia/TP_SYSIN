@@ -1,3 +1,4 @@
+from cProfile import label
 import random as rd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -170,7 +171,7 @@ class Etude_Statistique:
         """
         Function plotting the mean reward depending on the number of iterations
         """
-        Y = self.mean_reward
+        Y = self.mean_reward()
         plt.plot([i for i in range(self.nb_iterations)], Y)
         plt.xlabel("Number of iteration")
         plt.ylabel("Mean reward")
@@ -292,17 +293,17 @@ class comparaisonMethodes:
         y1 = self.epsilon_greedy.mean_reward()
         y2 = self.optimistic_greedy.mean_reward()
         y3 = self.ucb_agent.mean_reward()
-        plt.plot(x, y1)
-        plt.plot(x, y2)
-        plt.plot(x, y3)
+        plt.plot(x, y1, label="eps_greedy = " + str(self.epsilon_greedy.agents[0].eps))
+        plt.plot(x, y2, label="opt_greedy with same eps and q0 =" + str(self.q0))
+        plt.plot(
+            x,
+            y3,
+            label="ucb with c= " + str(self.ucb_agent.agents[0].confidence_value),
+        )
         plt.xlabel("Number of iterations")
         plt.ylabel("Mean reward")
         plt.title(title)
-        plt.legend(
-            "eps_greedy = " + str(self.epsilon_greedy.agents[0].eps),
-            "opt_greedy with same eps and q0 =" + str(self.q0),
-            "ucb with c= " + str(self.ucb_agent.agents[0].confidence_value),
-        )
+        plt.legend()
         plt.savefig(figname)
 
     def plot_comparaisons_best_option(self, title, figname):
@@ -310,15 +311,11 @@ class comparaisonMethodes:
         y1 = self.epsilon_greedy.best_option()
         y2 = self.optimistic_greedy.best_option()
         y3 = self.ucb_agent.best_option()
-        plt.plot(x, y1)
-        plt.plot(x, y2)
-        plt.plot(x, y3)
+        plt.plot(x, y1, label="eps_greedy = " + str(self.epsilon_greedy.agents[0].eps))
+        plt.plot(x, y2, label="opt_greedy with same eps and q0 =" + str(self.q0))
+        plt.plot(x, y3, label="ucb with c= " + str(self.ucb_agent.agents[0].confidence_value))
         plt.xlabel("Number of iterations")
         plt.ylabel("Accuracy (in %)")
         plt.title(title)
-        plt.legend(
-            "eps_greedy = " + str(self.epsilon_greedy.agents[0].eps),
-            "opt_greedy with same eps and q0 =" + str(self.q0),
-            "ucb with c= " + str(self.ucb_agent.agents[0].c),
-        )
+        plt.legend()
         plt.savefig(figname)

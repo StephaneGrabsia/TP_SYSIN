@@ -6,16 +6,18 @@ from machines import *
 def etude_unique_epsilon(eps=0.1, horizon=500):
     etude = Etude_Statistique(horizon, eps, BANDITS)
     etude.run()
-    etude.mean_reward(
-        title="Mean reward for a single epsilon greedy agent with eps="
+    plt.clf()
+    etude.plot_mean_reward(
+        title="Mean reward for a single epsilon greedy agent \n with eps="
         + str(eps)
         + " and with "
         + str(len(BANDITS))
         + " bandits",
         figname="mean_reward_one_agent_eps_" + str(eps)[2:] + ".jpg",
     )
-    etude.best_option(
-        title="Accuracy of a single epsilon greedy agent with eps="
+    plt.clf()
+    etude.plot_best_option(
+        title="Accuracy of a single epsilon greedy agent \n with eps="
         + str(eps)
         + " and with "
         + str(len(BANDITS))
@@ -29,16 +31,18 @@ def etude_unique_epsilon(eps=0.1, horizon=500):
 def etude_moyenne_agents_epsilon(eps=0.1, horizon=500, nb_agents=1000):
     sim = Etude_Agents(nb_agents, horizon, eps, BANDITS)
     sim.run()
-    sim.mean_reward(
-        title="Mean reward for a group of epsilon greedy agents with eps="
+    plt.clf()
+    sim.plot_mean_reward(
+        title="Mean reward for a group of epsilon greedy agents \n with eps="
         + str(eps)
         + " with "
         + str(len(BANDITS))
         + " bandits",
         figname="mean_reward_mean_agent_eps_" + str(eps)[2:] + ".jpg",
     )
-    sim.best_option(
-        title="Accuracy of a group of epsilon greedy agents with eps="
+    plt.clf()
+    sim.plot_best_option(
+        title="Accuracy of a group of epsilon greedy agents \n with eps="
         + str(eps)
         + " with "
         + str(len(BANDITS))
@@ -50,8 +54,9 @@ def etude_moyenne_agents_epsilon(eps=0.1, horizon=500, nb_agents=1000):
 def etude_unique_optimistic(eps=0.1, horizon=500, initial_value=8):
     etude = Etude_Statistique(horizon, eps, BANDITS, initial_value=initial_value)
     etude.run()
-    etude.mean_reward(
-        title="Mean reward for a single optimistic greedy agent with eps="
+    plt.clf()
+    etude.plot_mean_reward(
+        title="Mean reward for a single optimistic greedy agent \n with eps="
         + str(eps)
         + "Q0 ="
         + str(initial_value)
@@ -60,8 +65,9 @@ def etude_unique_optimistic(eps=0.1, horizon=500, initial_value=8):
         + " bandits",
         figname="mean_reward_one_agent_opt_" + str(eps)[2:] + ".jpg",
     )
-    etude.best_option(
-        title="Accuracy of a single optimistic greedy agent with eps="
+    plt.clf()
+    etude.plot_best_option(
+        title="Accuracy of a single optimistic greedy agent \n with eps="
         + str(eps)
         + "Q0 ="
         + str(initial_value)
@@ -79,8 +85,9 @@ def etude_moyenne_agents_optimistic(
 ):
     sim = Etude_Agents(nb_agents, horizon, eps, BANDITS, initial_value=initial_value)
     sim.run()
-    sim.mean_reward(
-        title="Mean reward for a group of optimistic greedy agents with eps="
+    plt.clf()
+    sim.plot_mean_reward(
+        title="Mean reward for a group of optimistic greedy agents \n with eps="
         + str(eps)
         + "Q0 ="
         + str(initial_value)
@@ -89,8 +96,9 @@ def etude_moyenne_agents_optimistic(
         + " bandits",
         figname="mean_reward_mean_agent_opt_" + str(eps)[2:] + ".jpg",
     )
-    sim.best_option(
-        title="Accuracy of a group of optimistic greedy agents with eps="
+    plt.clf()
+    sim.plot_best_option(
+        title="Accuracy of a group of optimistic greedy agents \n with eps="
         + str(eps)
         + "Q0 ="
         + str(initial_value)
@@ -104,15 +112,17 @@ def etude_moyenne_agents_optimistic(
 def etude_unique_ucb(c=0.1, horizon=500):
     etude = Etude_Statistique(horizon, c, BANDITS, ucb=True)
     etude.run()
-    etude.mean_reward(
-        title="Mean reward for a single ucb agent with c="
+    plt.clf()
+    etude.plot_mean_reward(
+        title="Mean reward for a single ucb agent \n with c="
         + str(c)
         + " and with "
         + str(len(BANDITS))
         + " bandits",
         figname="mean_reward_one_agent_ucb_" + str(c)[2:] + ".jpg",
     )
-    etude.best_option(
+    plt.clf()
+    etude.plot_best_option(
         title="Accuracy of a single ucb agent with c="
         + str(c)
         + " and with "
@@ -120,14 +130,13 @@ def etude_unique_ucb(c=0.1, horizon=500):
         + " bandits",
         figname="best_option_one_agent_ucb_" + str(c)[2:] + ".jpg",
     )
-    print(etude.agent.number_explored[etude.agent.best_bandit] / etude.nb_iterations)
-    print(etude.agent.nb_eps / etude.nb_iterations)
 
 
 def etude_moyenne_agents_ucb(c=0.1, horizon=500, nb_agents=1000):
     sim = Etude_Agents(nb_agents, horizon, c, BANDITS, ucb=True)
     sim.run()
-    sim.mean_reward(
+    plt.clf()
+    sim.plot_mean_reward(
         title="Mean reward for a group of ucb agents with c="
         + str(c)
         + " with "
@@ -135,7 +144,8 @@ def etude_moyenne_agents_ucb(c=0.1, horizon=500, nb_agents=1000):
         + " bandits",
         figname="mean_reward_mean_agent_ucb_" + str(c)[2:] + ".jpg",
     )
-    sim.best_option(
+    plt.clf()
+    sim.plot_best_option(
         title="Accuracy of a group of ucb agents with eps="
         + str(c)
         + " with "
@@ -155,18 +165,20 @@ def comparaison(eps=0.1, c=0.1, initial_value=8, horizon=500, nb_agents=1000):
         initial_value=initial_value,
     )
     comparaison.run()
+    plt.clf()
     comparaison.plot_comparaisons_mean_reward(
         title="Mean reward for different methods", figname="comparaison_mean_reward.jpg"
     )
-    comparaison.plot_comparaisons_mean_reward(
+    plt.close()
+    comparaison.plot_comparaisons_best_option(
         title="Accuracy for different methods", figname="comparaison_best_option.jpg"
     )
 
-
-comparaison()
-etude_unique_epsilon()
-etude_moyenne_agents_epsilon()
-etude_unique_optimistic()
-etude_moyenne_agents_optimistic()
-etude_unique_ucb()
-etude_moyenne_agents_ucb()
+# Functions to execute if you want to have the same results thant those in the data folder
+#comparaison(nb_agents=300, horizon=1500)
+etude_unique_epsilon(horizon=1500)
+etude_moyenne_agents_epsilon(nb_agents=300,horizon=1500)
+etude_unique_optimistic(horizon=1500)
+etude_moyenne_agents_optimistic(nb_agents= 300,horizon=1500)
+# etude_unique_ucb(horizon=1500)
+# etude_moyenne_agents_ucb(nb_agents= 300, horizon=1500)
